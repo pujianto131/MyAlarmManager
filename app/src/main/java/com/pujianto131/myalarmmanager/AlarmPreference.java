@@ -48,15 +48,15 @@ public class AlarmPreference {
         editor.putString(KEY_REPEATING_TIME, time);
         editor.commit();
     }
-    public String getOneRepeatingTime(){
+    public String getRepeatingTime(){
         return mSharedPreference.getString(KEY_REPEATING_TIME, null);
     }
 
-    public void setOneRepeatingMesage(String mesage){
+    public void setRepeatingMesage(String mesage){
         editor.putString(KEY_REPEATING_MESSAGE, mesage);
         editor.commit();
     }
-    public String getOneRepeatingMessage(){
+    public String getRepeatingMessage(){
         return mSharedPreference.getString(KEY_REPEATING_MESSAGE,null);
     }
 

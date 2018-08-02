@@ -71,6 +71,23 @@ public class AlarmReceiver extends BroadcastReceiver {
         Toast.makeText(context, "One time alarm set up", Toast.LENGTH_SHORT).show();
     }
 
+    public void setRepeatingAlarm(Context context, String type, String time, String message){
+        AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, AlarmReceiver.class);
+        intent.putExtra(EXTRA_MESSAGE, message);
+        intent.putExtra(EXTRA_TYPE, type);
+        String timeArray[] = time.split(":");
+        Calendar kalender = Calendar.getInstance();
+        kalender.set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeArray[0]));
+        kalender.set(Calendar.MINUTE, Integer.parseInt(timeArray[1]));
+        kalender.set(Calendar.SECOND, 0);
+
+        int requestCode = NOTIF_ID_REPEATING;
+        PendingIntent mPendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, kalender.getTimeInMillis(),AlarmManager.INTERVAL_DAY, mPendingIntent);
+        Toast.makeText(context, "Repeating alarm set up", Toast.LENGTH_SHORT);
+    }
+
     public void cancelAlarm(Context context, String type){
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
